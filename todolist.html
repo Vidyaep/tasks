@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-image: linear-gradient(black,rgb(199, 10, 10));
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      width: 400px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, .3);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    .input-group1,
+    .input-group2,
+    .input-group3 {
+      display: flex;
+      margin-bottom: 20px; 
+    }
+    .input-group3 {
+      justify-content: center;
+    }
+    #taskInput1,
+    #taskInput2 {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      padding: 10px;
+      background-color: #000000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: rgb(243, 89, 89);
+      color: black;
+    }
+    ul {
+      list-style-type: none;
+      margin-top: 20px;
+    }
+    li {
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+    li.completed {
+      text-decoration: line-through;
+      color: #888;
+    }
+    li button {
+      background-color: #ff453f;
+      border: none;
+      padding: 5px 10px;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    li button:hover {
+      background-color: #c9302c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <div class="input-group1">
+      <input type="text" id="taskInput1" placeholder="Add a new task..." />
+    </div>
+    <div class="input-group2">
+      <input type="date" id="taskInput2" placeholder="Add date" />
+    </div>
+    <div class="input-group3"> 
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById("taskInput1");
+      const taskDate = document.getElementById("taskInput2");
+      const taskList = document.getElementById("taskList");
+      if (taskInput.value.trim() === "") {
+        alert("Please enter a task.");
+        return;
+      }
+      const taskItem = document.createElement("li");
+      taskItem.textContent = `${taskInput.value} - ${taskDate.value}`;
+      taskItem.addEventListener("click", () => {
+        taskItem.classList.toggle("completed");
+      });
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.onclick = () => {
+        taskList.removeChild(taskItem);
+      };
+      taskItem.appendChild(deleteButton);
+      taskList.appendChild(taskItem);
+      taskInput.value = "";
+      taskDate.value = "";
+    }
+  </script>
+</body>
+</html>
